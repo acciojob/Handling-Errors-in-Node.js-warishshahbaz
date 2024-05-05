@@ -7,7 +7,6 @@ function printFileContents(filePath) {
     process.exit(1);
   }
 
-  // Extract the file path from command-line arguments
   const filePath = process.argv[2];
 
   // Read the file asynchronously
