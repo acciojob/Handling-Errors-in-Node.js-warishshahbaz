@@ -1,29 +1,26 @@
-const fs = require("fs");
-
-function printFileContents() {
+function printFileContents(filePath) {
   // Check if the command-line argument is provided
-  if (process.argv.length !== 3) {
-    console.error("Usage: node read_file.js <file_path>");
-    process.exit(1);
+  if (!filePath) {
+    console.error(
+      "Invalid usage. Please provide a file path as a command-line argument."
+    );
+    return;
   }
 
-  // Get the file path from the command-line argument
-  const filePath = process.argv[2];
-
-  // Read the file
+  // Read the file contents
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      if (err.code === "ENOENT") {
-        console.error(`Error: File '${filePath}' not found.`);
-      } else {
-        console.error(`Error reading file: ${err.message}`);
-      }
-      process.exit(1);
+      console.error(`Error reading file: ${err.message}`);
+      return;
     }
-    // Print file contents
+
+    // Print the file contents to the console
     console.log(data);
   });
 }
 
-printFileContents();
-// TODO: Call printFileContents with the command-line argument
+// Retrieve command-line argument
+const filePath = process.argv[2];
+
+// Call printFileContents with the command-line argument
+printFileContents(filePath);
